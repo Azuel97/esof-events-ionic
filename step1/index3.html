@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IONIC 1</title>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+    <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css"/>
+    <style>
+        :root {
+            /* Setto il backgroundcolor per l'intera app */
+            --ion-background-color: red;
+        }
+
+        /* Se tra le preferenze del S.O è indicato il tema dark allora esegui i cambiamenti selezionati */
+        @media (prefers-color-scheme: dark){
+            :root {
+            /* Only dark mode */
+            --ion-background-color: black;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Tag principale SOLO UNO per APP -->
+    <ion-app>
+        <ion-header translucent>
+            <ion-toolbar>
+                <ion-buttons slot="secondary">
+                    <ion-button>
+                        <ion-icon slot="icon-only" name="logo-ionic"></ion-icon>
+                    </ion-button>
+                </ion-buttons>
+                <ion-title>Searchbar</ion-title>
+                <ion-buttons slot="primary">
+                    <ion-button>
+                        <ion-icon slot="icon-only" name="star"></ion-icon>
+                    </ion-button>
+                </ion-buttons>
+            </ion-toolbar>
+            <ion-toolbar>
+                <ion-searchbar></ion-searchbar>
+            </ion-toolbar>
+        </ion-header>
+
+        <ion-content>
+            <ion-list>
+                <ion-item>Amsterdam</ion-item>
+                <ion-item>Londra</ion-item>
+                <ion-item>Berlino</ion-item>
+                <ion-item>Milano</ion-item>
+                <ion-item>Los Angeles</ion-item>
+                <ion-item>New York</ion-item>
+                <ion-item>Amsterdam</ion-item>
+                <ion-item>Londra</ion-item>
+                <ion-item>Berlino</ion-item>
+                <ion-item>Milano</ion-item>
+                <ion-item>Los Angeles</ion-item>
+                <ion-item>New York</ion-item>
+                <ion-item>Amsterdam</ion-item>
+                <ion-item>Londra</ion-item>
+                <ion-item>Los Angeles</ion-item>
+                <ion-item>New York</ion-item>
+                <ion-item>Amsterdam</ion-item>
+                <ion-item>Londra</ion-item>
+            </ion-list>
+        </ion-content>
+    </ion-app>
+
+    <script>
+        // Recupero il primo tag tramite il querySelector, e ritorna la searchbar
+        const searchbar = document.querySelector('ion-searchbar');
+        // querrySelector[children] al posto di querySelectorAll -> migliore le performance
+        const items = Array.from(document.querySelector('ion-list').children);
+        // Aggiungo evento di listener per la searchbar
+        searchbar.addEventListener('ionInput', handleInput);
+        
+        function handleInput(event) {
+            const query = event.target.value.toLowerCase();
+              requestAnimationFrame(() => {
+                items.forEach(item => {
+                    // indexOf() > -1  , vuol dire valore non trovato
+                  const shouldShow = item.textContent.toLowerCase().indexOf(query) > -1;
+                  item.style.display = shouldShow ? 'block' : 'none';
+                });
+            });
+        }
+    </script>
+
+</body>
+</html>
